@@ -2,6 +2,7 @@ var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-c
 var moves = 0;
 var time = 0;
 var match = 0;
+var upsetCard = [];
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -17,8 +18,6 @@ function shuffle(array) {
     return array;
 }
 
-/* <li class="card"><i class="fa fa-diamond"></i></li> */
-
 function addCard(card) {
     $('.deck').append(`<li class="card"><i class="fa ${card}"></i></li>`);
 }
@@ -30,8 +29,17 @@ function randomCard() {
     }
 }
 
+function clickCard() {
+
+    if (upsetCard.length === 0) {
+        $(this).toggleClass("open show");
+        upsetCard.push($(this));
+    }
+}
+
 function initGame() {
     randomCard();
+    $('.card').click(clickCard);
 };
 
 initGame();
