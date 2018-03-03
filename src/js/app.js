@@ -1,4 +1,5 @@
 var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+var upsetCards = [];
 
 // CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
@@ -28,40 +29,47 @@ function randomCard() {
     }
 }
 
-var upsetCards = [];
+// AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO OUVER CLIQUE NA CLASSE CARD 
+var cardAction = function() {
+	$('.card').on('click', function() {
 
-var listener = function () {
+        $(this).toggleClass('open show');
+		upsetCards.push($(this));
 
-	$('.card').on('click', function () {
-        if ($(this).hasClass('open show') || $(this).hasClass('match')) { 
-            return true; 
+        if (upsetCards.length >= 2) {
+            if (upsetCards[0][0].firstChild.className == upsetCards[1][0].firstChild.className) {
+                $('.open').addClass('match');
+                setTimeout(() => { $('.match').removeClass('open show error'); }, 600);
+            } else {
+                $('.open').addClass('error');
+                setTimeout(() => { $('.open').toggleClass('open show error'); }, 600);
+            }
+            upsetCards = [];
         }
-
-        $(this).addClass('open show');
-        upsetCards.push($(this));
         
     });
 }
 
-
+// ORDENANDO FUNCOES PARA INICIAR O GAME
 function initGame() {
     randomCard();
-    listener();
+    cardAction();
 };
 
 initGame();
 
 /*
- * Crie uma lista que contenha todos os seus cartões
- * Exibir os cartões na página
- * - Arraste a lista de cartões usando o método "shuffle" fornecido abaixo
- * - faça um loop através de cada cartão e crie seu HTML
- * - adicione o HTML de cada cartão à página
+ * OK - Crie uma lista que contenha todos os seus cartões
+ * OK - Exibir os cartões na página
+ * OK - Arraste a lista de cartões usando o método "shuffle" fornecido abaixo
+ * OK - faça um loop através de cada cartão e crie seu HTML
+ * OK - adicione o HTML de cada cartão à página
 
- * configurar o ouvinte de eventos para um cartão. Se um cartão for clicado:
- * - exiba o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
+ * OK - configurar o ouvinte de eventos para um cartão. Se um cartão for clicado:
+ * OK - exiba o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
  * - adicione o cartão a uma * lista * de cartões "abertos" (coloque esta funcionalidade em outra função que você chama deste)
- * - se a lista já tiver outro cartão, verifique se as duas cartas correspondem
+ * OK - se a lista já tiver outro cartão, verifique se as duas cartas correspondem
+ * 
  * + se as cartas combinam, bloqueie as cartas na posição aberta (coloque esta funcionalidade em outra função que você chama deste)
  * + se as cartas não coincidem, remova os cartões da lista e esconda o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
  * + incrementar o contador de movimentos e exibi-lo na página (coloque esta funcionalidade em outra função que você chama deste)
