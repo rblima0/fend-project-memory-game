@@ -1,9 +1,6 @@
 var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-var moves = 0;
-var time = 0;
-var match = 0;
-var upsetCard = [];
 
+// CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -18,10 +15,12 @@ function shuffle(array) {
     return array;
 }
 
+// ADICIONANDO O CARD PELO JS NA PAGINA
 function addCard(card) {
     $('.deck').append(`<li class="card"><i class="fa ${card}"></i></li>`);
 }
 
+// USANDO A CLASSE SHUFFLE PARA EMBARALHAR AS CARTAS E ADICIONAR NA PAGINA
 function randomCard() {
     for (var i = 0; i < 2; i++) {
         gameCards = shuffle(gameCards);
@@ -29,17 +28,25 @@ function randomCard() {
     }
 }
 
-function clickCard() {
+var upsetCards = [];
 
-    if (upsetCard.length === 0) {
-        $(this).toggleClass("open show");
-        upsetCard.push($(this));
-    }
+var listener = function () {
+
+	$('.card').on('click', function () {
+        if ($(this).hasClass('open show') || $(this).hasClass('match')) { 
+            return true; 
+        }
+
+        $(this).addClass('open show');
+        upsetCards.push($(this));
+        
+    });
 }
+
 
 function initGame() {
     randomCard();
-    $('.card').click(clickCard);
+    listener();
 };
 
 initGame();
