@@ -1,6 +1,7 @@
 var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 var upsetCards = [];
 
+
 // CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -49,6 +50,14 @@ var cardAction = function() {
         
     });
 }
+
+// FUNCAO DO TIMER com minutos e segundos
+var sec = 0;
+function timer(val) { return val > 9 ? val : "0" + val; }
+setInterval(function () {
+    $("#seconds").html(timer(++sec % 60));
+    $("#minutes").html(timer(parseInt(sec / 60, 10) % 60));
+}, 1000);
 
 // ORDENANDO FUNCOES PARA INICIAR O GAME
 function initGame() {
