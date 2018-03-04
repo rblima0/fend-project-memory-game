@@ -1,6 +1,7 @@
 var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 var upsetCards = [];
 var match = 0;
+var move = 0;
 
 // CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
@@ -33,17 +34,17 @@ function randomCard() {
 // AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO OUVER CLIQUE NA CLASSE CARD 
 var cardAction = function() {
 	$('.card').on('click', function() {
-
+        move++;
+        $("#move").html(move);
         $(this).toggleClass('open show');
 		upsetCards.push($(this));
 
         if (upsetCards.length >= 2) {
             if (upsetCards[0][0].firstChild.className == upsetCards[1][0].firstChild.className) {
-                console.log("consegui...");
                 $('.open').addClass('match');
-                match++;
-                console.log(match);
                 setTimeout(() => { $('.match').removeClass('open show error'); }, 600);
+                match++;
+                $("#match").html(match);
                 winner();
             } else {
                 $('.open').addClass('error');
@@ -66,11 +67,17 @@ setInterval(function () {
 // VENCENDO A PARTIDA
 function winner(){
     if(match === 8) {
-        console.log("Venceu o jogo");
-        console.log(timer());
+        alert("Venceu o jogo");
     }
 }
 
+// FUNCAO DE RESTART
+function restartGame () {
+    $(".restart").on ("click", function() {
+        location.reload();
+    });
+}
+restartGame();
 
 // ORDENANDO FUNCOES PARA INICIAR O GAME
 function initGame() {
