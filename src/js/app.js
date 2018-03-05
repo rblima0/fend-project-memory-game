@@ -2,6 +2,7 @@ var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-c
 var upsetCards = [];
 var match = 0;
 var move = 0;
+var star = 0;
 
 // CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
@@ -34,8 +35,8 @@ function randomCard() {
 // AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO OUVER CLIQUE NA CLASSE CARD 
 var cardAction = function() {
 	$('.card').on('click', function() {
-        move++;
-        $("#move").html(move);
+
+        moving();
         $(this).toggleClass('open show');
 		upsetCards.push($(this));
 
@@ -48,7 +49,7 @@ var cardAction = function() {
                 winner();
             } else {
                 $('.open').addClass('error');
-                setTimeout(() => { $('.open').toggleClass('open show error'); }, 600);
+                setTimeout(() => { $('.card').removeClass('open show error'); }, 600);
             }
             upsetCards = [];
         }
@@ -56,7 +57,7 @@ var cardAction = function() {
     });
 }
 
-// FUNCAO DO TIMER com minutos e segundos
+// FUNCAO DO TIMER COM MINUTOS E SEGUNDOS
 var sec = 0;
 function timer(val) { return val > 9 ? val : "0" + val; }
 setInterval(function () {
@@ -64,10 +65,31 @@ setInterval(function () {
     $("#minutes").html(timer(parseInt(sec / 60, 10) % 60));
 }, 1000);
 
+// FUNCAO DOS MOVIMENTOS E DAS ESTRELAS
+function moving(){
+    move++;
+    $(".move").html(move);
+
+    if(move <= 24) {
+        star = 3;
+    } else if(move > 24 && move <= 40) {
+        $("#third-star").removeClass("fa-star").addClass("fa-star-o");
+        star = 2;
+    } else if (move > 40 && move <= 56) {
+        $("#second-star").removeClass("fa-star").addClass("fa-star-o");
+        star = 1;
+    } else if (move > 56) {
+        $("#first-star").removeClass("fa-star").addClass("fa-star-o");
+        star = 0;
+    }
+}
+
 // VENCENDO A PARTIDA
 function winner(){
     if(match === 8) {
-        alert("Venceu o jogo");
+        setTimeout(() => {
+            alert("Venceu o jogo");
+        }, 400);
     }
 }
 
@@ -98,9 +120,8 @@ initGame();
  * OK - exiba o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
  * - adicione o cartão a uma * lista * de cartões "abertos" (coloque esta funcionalidade em outra função que você chama deste)
  * OK - se a lista já tiver outro cartão, verifique se as duas cartas correspondem
- * 
- * + se as cartas combinam, bloqueie as cartas na posição aberta (coloque esta funcionalidade em outra função que você chama deste)
- * + se as cartas não coincidem, remova os cartões da lista e esconda o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
- * + incrementar o contador de movimentos e exibi-lo na página (coloque esta funcionalidade em outra função que você chama deste)
+ * OK + se as cartas combinam, bloqueie as cartas na posição aberta (coloque esta funcionalidade em outra função que você chama deste)
+ * OK + se as cartas não coincidem, remova os cartões da lista e esconda o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
+ * OK + incrementar o contador de movimentos e exibi-lo na página (coloque esta funcionalidade em outra função que você chama deste)
  * + se todas as cartas estiverem correspondidas, exiba uma mensagem com a pontuação final (coloque esta funcionalidade em outra função que você chama deste)
  */
