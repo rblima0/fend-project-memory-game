@@ -1,20 +1,37 @@
-# Memory Game Project
+# Projeto Jogo da Memória
 
-## Table of Contents
+Demonstração: https://rblima0.github.io/projeto-jogo-da-memoria
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+O Projeto Jogo da Memória é um jogo de correspondência de cartas completo para navegador (também conhecido como Concentration), haverá uma série de cartas viradas para baixo, e o jogador deve virar duas dessas cartas para cima para localizar aquelas que combinam entre si!
 
-## Instructions
+## DIFICULDADE
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+### Modo Fácil:
+O tabuleiro do jogo consiste em 12 cartas dispostas aleatoriamente em uma grade com imagens de veículos, o baralho é composto por 6 pares de cartas.
 
-To get started, open `js/app.js` and start building out the app's functionality
+### Modo Normal:
+O tabuleiro do jogo consiste em 16 cartas dispostas aleatoriamente em uma grade com imagens de objetos, o baralho é composto por 8 pares de cartas.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+### Modo Difícil:
+O tabuleiro do jogo consiste em 20 cartas dispostas aleatoriamente em uma grade com imagens de esportes, o baralho é composto por 10 pares de cartas.
 
-## Contributing
+## MODO DE JOGO
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+* Um jogador deve virar uma carta para revelar seu símbolo.
+* Então, esse mesmo jogador deve virar outra carta, tentando encontrar a carta correspondente.
+* Se as cartas forem iguais, ambas ficam viradas para cima.
+* Se as cartas não forem iguais, ambas são viradas para baixo novamente.
+* Os movimentos são contabilizados a cada par virado.
+* Um cronometro contabiliza o tempo de jogo até a vitória.
+* Quando encontrar todos os pares um modal aparece com os dados da vitória.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Arquivos externos utilizados
+
+* Fonte Press Start 2P - Google Fonts
+* Jquery 3.2.1
+* fontawesome v5.0.8
+* Daneden [Animate](https://daneden.github.io/animate.css/)
+
+### Importante
+
+Projeto desenvolvido para o curso de Nanodegree Desenvolvedor Web Front-End da [Udacity](https://br.udacity.com/), os arquivos são livres para seu uso, crie seu próprio game você também, link para o projeto [base](https://github.com/udacity/fend-project-memory-game);
