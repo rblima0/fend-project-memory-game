@@ -7,6 +7,7 @@
     <link rel="stylesheet prefetch" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -15,6 +16,7 @@
             <h1>Jogo da Memória</h1>
         </header>
 
+        <!-- MODAL DE DIFICULDADE -->
         <div id="modalOptions" class="modalOptions">
             <div class="modalContent">
                 <p>JOGO DA MEMORIA</p>
@@ -31,6 +33,16 @@
                     <p>Difícil</p>
                     <i class="far fa-smile"></i>
                 </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE VITORIA -->
+        <div id="modalWinner" class="modalOptions">
+            <div class="modalContent">
+                <i style="color: #ffc107;" class="fa fa-trophy"></i>
+                <h3>Parábens, Você Venceu !</h3>
+                <div class="score"></div>
+                <span class="close restart">Jogar Novamente</span>
             </div>
         </div>
 

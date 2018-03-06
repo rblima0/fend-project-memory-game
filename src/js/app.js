@@ -81,8 +81,39 @@ function actionMatch(){
     $("#match").html(match);
 }
 
+// MODAL DE VENCEDOR
 function modalWinner() {
-    setTimeout(() => { alert("Parabens você venceu ! \n" + "Dificuldade: " + difficulty + "\nMovimentos: " + move + "\nTempo: " + minutes + " minuto " + seconds + " segundos");}, 600);
+    $('#modalWinner').css("display", "block");
+    setTimeout(() => {
+        $('.score').append(`<p>Dificuldade: ${difficulty}</p><p>Com ${move} movimentos e ${star} estrela(s)</p><p>Tempo: ${minutes} minutos e ${seconds} segundos</p><br>`);
+    }, 600);
+}
+
+// FUNÇÃO DE DIFICULDADE
+function modalOptions() {
+    $('#modalWinner').css("display", "none");
+    $('#modalOptions').css("display", "block");
+
+    $("#easy").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Facil';
+        randomCard(cardEasy);
+        cardAction();
+    });
+
+    $("#normal").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Normal';
+        randomCard(cardNormal);
+        cardAction();
+    });
+
+    $("#hard").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Dificil';
+        randomCard(cardHard);
+        cardAction();
+    });
 }
 
 // VENCENDO A PARTIDA
@@ -119,32 +150,6 @@ var cardAction = function() {
             upsetCards = [];
         }
         
-    });
-}
-
-// FUNÇÃO DE DIFICULDADE
-function modalOptions() {
-    $('#modalOptions').css("display", "block");
-
-    $("#easy").on("click", function() {
-        $('#modalOptions').css("display", "none");
-        difficulty = 'Facil';
-        randomCard(cardEasy);
-        cardAction();
-    });
-
-    $("#normal").on("click", function() {
-        $('#modalOptions').css("display", "none");
-        difficulty = 'Normal';
-        randomCard(cardNormal);
-        cardAction();
-    });
-
-    $("#hard").on("click", function() {
-        $('#modalOptions').css("display", "none");
-        difficulty = 'Dificil';
-        randomCard(cardHard);
-        cardAction();
     });
 }
 
