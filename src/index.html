@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Jogo da Memória - Versão 3</title>
+    <title>Jogo da Memória</title>
     <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet prefetch" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -15,17 +15,36 @@
             <h1>Jogo da Memória</h1>
         </header>
 
+        <div id="modalOptions" class="modalOptions">
+            <div class="modalContent">
+                <p>JOGO DA MEMORIA</p>
+                <p>Escolha a dificuldade...</p>
+                <div class="box" id="easy">
+                    <p>Fácil</p>
+                    <i class="far fa-frown"></i>
+                </div>
+                <div class="box"  id="normal">
+                    <p>Normal</p>
+                    <i class="far fa-meh"></i>
+                </div>
+                <div class="box" id="hard">
+                    <p>Difícil</p>
+                    <i class="far fa-smile"></i>
+                </div>
+            </div>
+        </div>
+
         <section class="score-panel">
         	<ul class="stars">
         		<li><i id="first-star" class="fa fa-star"></i></li>
         		<li><i id="second-star" class="fa fa-star"></i></li>
         		<li><i id="third-star" class="fa fa-star"></i></li>
         	</ul>
-
+            <br><br>
             <span class="move">0</span> Movimento(s) | Combinações:  <span id="match">0</span> | Tempo: <span id="minutes">00</span>:<span id="seconds">00</span>
 
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
+        		<i class="fa fa-redo-alt"></i>
         	</div>
         </section>
 

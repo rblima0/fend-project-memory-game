@@ -1,8 +1,12 @@
-var gameCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+var cardEasy = ['fa-ambulance', 'fa-bicycle', 'fa-bus', 'fa-car', 'fa-fighter-jet', 'fa-motorcycle'];
+var cardNormal = ['fa-anchor', 'fa-bomb', 'fa-camera', 'fa-cut', 'fa-gamepad', 'fa-gem', 'fa-headphones', 'fa-lightbulb'];
+var cardHard = ['fa-baseball-ball', 'fa-basketball-ball', 'fa-bowling-ball', 'fa-football-ball', 'fa-futbol', 'fa-golf-ball', 'fa-table-tennis', 'fa-volleyball-ball', 'fa-quidditch', 'fa-hockey-puck'];
+
 var upsetCards = [];
 var match = 0;
 var move = 0;
 var star = 0;
+var difficulty = '';
 
 var initTimer = false;
 var seconds = 0;
@@ -16,10 +20,10 @@ function addCard(card) {
 }
 
 // USANDO A CLASSE SHUFFLE PARA EMBARALHAR AS CARTAS E ADICIONAR NA PAGINA
-function randomCard() {
+function randomCard(option) {
     for (var i = 0; i < 2; i++) {
-        gameCards = shuffle(gameCards);
-        gameCards.forEach(addCard);
+        option = shuffle(option);
+        option.forEach(addCard);
     }
 }
 
@@ -52,12 +56,6 @@ function startTimer() {
     }
 }
 
-// FUNÇÃO DE COMBINAÇÃO
-function actionMatch(){
-    match++;
-    $("#match").html(match);
-}
-
 // FUNCAO DOS MOVIMENTOS E DAS ESTRELAS
 function actionMove(){
     move++;
@@ -77,10 +75,31 @@ function actionMove(){
     }
 }
 
+// FUNÇÃO DE COMBINAÇÃO
+function actionMatch(){
+    match++;
+    $("#match").html(match);
+}
+
+function modalWinner() {
+    setTimeout(() => { alert("Parabens você venceu ! \n" + "Dificuldade: " + difficulty + "\nMovimentos: " + move + "\nTempo: " + minutes + " minuto " + seconds + " segundos");}, 600);
+}
+
+// VENCENDO A PARTIDA
+function winnerAction(){
+    if(difficulty === 'Facil' && match === 6) {
+        modalWinner();
+    } else if (difficulty === 'Normal' && match === 8) {
+        modalWinner();
+    } else if(difficulty === 'Dificil' && match === 10) {
+        modalWinner();
+    }    
+}
+
 // AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO OUVER CLIQUE NA CLASSE CARD
 selected = false;
 var cardAction = function() {
-	$('.card').on('click', function() {
+	$('.deck').on('click','.card:not(".match, .open")', function() {
 
         startTimer();
         $(this).toggleClass('open show');
@@ -92,7 +111,7 @@ var cardAction = function() {
                 actionMatch();
                 $('.open').addClass('match');
                 setTimeout(() => { $('.match').removeClass('open show error'); }, 600);
-                winner();
+                winnerAction();
             } else {
                 $('.open').addClass('error');
                 setTimeout(() => { $('.card').removeClass('open show error'); }, 600);
@@ -103,14 +122,30 @@ var cardAction = function() {
     });
 }
 
-// VENCENDO A PARTIDA
-function winner(){
-    if(match === 8) {
-        setTimeout(() => {
-            alert("Parabens você venceu ! \n" + "Movimentos: " + move + 
-            "\nTempo: " + minutes + " minuto " + seconds + " segundos");
-        }, 400);
-    }
+// FUNÇÃO DE DIFICULDADE
+function modalOptions() {
+    $('#modalOptions').css("display", "block");
+
+    $("#easy").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Facil';
+        randomCard(cardEasy);
+        cardAction();
+    });
+
+    $("#normal").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Normal';
+        randomCard(cardNormal);
+        cardAction();
+    });
+
+    $("#hard").on("click", function() {
+        $('#modalOptions').css("display", "none");
+        difficulty = 'Dificil';
+        randomCard(cardHard);
+        cardAction();
+    });
 }
 
 // FUNCAO DE RESTART
@@ -123,8 +158,7 @@ restartGame();
 
 // ORDENANDO FUNCOES PARA INICIAR O GAME
 function initGame() {
-    randomCard();
-    cardAction();
+    modalOptions();
 };
 
 initGame();
