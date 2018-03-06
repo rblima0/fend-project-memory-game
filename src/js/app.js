@@ -1,27 +1,25 @@
-var cardEasy = ['fa-ambulance', 'fa-bicycle', 'fa-bus', 'fa-car', 'fa-fighter-jet', 'fa-motorcycle'];
-var cardNormal = ['fa-anchor', 'fa-bomb', 'fa-camera', 'fa-cut', 'fa-gamepad', 'fa-gem', 'fa-headphones', 'fa-lightbulb'];
-var cardHard = ['fa-baseball-ball', 'fa-basketball-ball', 'fa-bowling-ball', 'fa-football-ball', 'fa-futbol', 'fa-golf-ball', 'fa-table-tennis', 'fa-volleyball-ball', 'fa-quidditch', 'fa-hockey-puck'];
+const cardEasy = ['fa-ambulance', 'fa-bicycle', 'fa-bus', 'fa-car', 'fa-fighter-jet', 'fa-motorcycle'], 
+    cardNormal = ['fa-anchor', 'fa-bomb', 'fa-camera', 'fa-cut', 'fa-gamepad', 'fa-gem', 'fa-headphones', 'fa-lightbulb'],
+    cardHard = ['fa-baseball-ball', 'fa-basketball-ball', 'fa-bowling-ball', 'fa-football-ball', 'fa-futbol', 'fa-golf-ball', 'fa-table-tennis', 'fa-volleyball-ball', 'fa-quidditch', 'fa-hockey-puck'];
 
-var upsetCards = [];
-var match = 0;
-var move = 0;
-var star = 0;
-var difficulty = '';
-
-var initTimer = false;
-var seconds = 0;
-var minutes = 0;
-var sec = 0;
-
+let upsetCards = [],
+    match = 0,
+    move = 0,
+    star = 0,
+    difficulty = '',
+    initTimer = false,
+    seconds = 0,
+    minutes = 0,
+    sec = 0;
 
 // ADICIONANDO O CARD PELO JS NA PAGINA
 function addCard(card) {
-    $('.deck').append(`<li class="card"><i class="fa ${card}"></i></li>`);
+    $('.deck').append(`<li class="card animated"><i class="fa ${card}"></i></li>`);
 }
 
 // USANDO A CLASSE SHUFFLE PARA EMBARALHAR AS CARTAS E ADICIONAR NA PAGINA
 function randomCard(option) {
-    for (var i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++) {
         option = shuffle(option);
         option.forEach(addCard);
     }
@@ -29,7 +27,7 @@ function randomCard(option) {
 
 // CLASSE PARA RANDOMIZAR AS CARTAS
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -83,10 +81,10 @@ function actionMatch(){
 
 // MODAL DE VENCEDOR
 function modalWinner() {
-    $('#modalWinner').css("display", "block");
     setTimeout(() => {
+        $('#modalWinner').css("display", "block").addClass('zoomIn');
         $('.score').append(`<p>Dificuldade: ${difficulty}</p><p>Com ${move} movimentos e ${star} estrela(s)</p><p>Tempo: ${minutes} minutos e ${seconds} segundos</p><br>`);
-    }, 600);
+    }, 1000);
 }
 
 // FUNÇÃO DE DIFICULDADE
@@ -127,9 +125,9 @@ function winnerAction(){
     }    
 }
 
-// AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO OUVER CLIQUE NA CLASSE CARD
+// AÇÕES PARA ADICIONAR AS CLASSES (OPEN, SHOW, ERROR, MATCH) QUANDO TIVER CLIQUE NA CLASSE CARD
 selected = false;
-var cardAction = function() {
+function cardAction() {
 	$('.deck').on('click','.card:not(".match, .open")', function() {
 
         startTimer();
@@ -140,12 +138,12 @@ var cardAction = function() {
             actionMove();
             if (upsetCards[0].children().attr("class") === upsetCards[1].children().attr("class")) {
                 actionMatch();
-                $('.open').addClass('match');
+                $('.open').addClass('match flash');
                 setTimeout(() => { $('.match').removeClass('open show error'); }, 600);
                 winnerAction();
             } else {
-                $('.open').addClass('error');
-                setTimeout(() => { $('.card').removeClass('open show error'); }, 600);
+                $('.open').addClass('error shake');
+                setTimeout(() => { $('.card').removeClass('open show error shake'); }, 600);
             }
             upsetCards = [];
         }
@@ -161,25 +159,9 @@ function restartGame () {
 }
 restartGame();
 
-// ORDENANDO FUNCOES PARA INICIAR O GAME
+// FUNÇÃO PARA INICIAR O GAME
 function initGame() {
     modalOptions();
 };
 
 initGame();
-
-/*
- * OK - Crie uma lista que contenha todos os seus cartões
- * OK - Exibir os cartões na página
- * OK - Arraste a lista de cartões usando o método "shuffle" fornecido abaixo
- * OK - faça um loop através de cada cartão e crie seu HTML
- * OK - adicione o HTML de cada cartão à página
- * OK - configurar o ouvinte de eventos para um cartão. Se um cartão for clicado:
- * OK - exiba o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
- * - adicione o cartão a uma * lista * de cartões "abertos" (coloque esta funcionalidade em outra função que você chama deste)
- * OK - se a lista já tiver outro cartão, verifique se as duas cartas correspondem
- * OK + se as cartas combinam, bloqueie as cartas na posição aberta (coloque esta funcionalidade em outra função que você chama deste)
- * OK + se as cartas não coincidem, remova os cartões da lista e esconda o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
- * OK + incrementar o contador de movimentos e exibi-lo na página (coloque esta funcionalidade em outra função que você chama deste)
- * + se todas as cartas estiverem correspondidas, exiba uma mensagem com a pontuação final (coloque esta funcionalidade em outra função que você chama deste)
- */
