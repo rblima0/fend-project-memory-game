@@ -67,9 +67,6 @@ function actionMove(){
     } else if (move > 20 && move <= 28) {
         $("#second-star").removeClass("fa-star").addClass("fa-star-o");
         star = 1;
-    } else if (move > 28) {
-        $("#first-star").removeClass("fa-star").addClass("fa-star-o");
-        star = 0;
     }
 }
 
